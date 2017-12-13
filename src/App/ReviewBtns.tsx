@@ -21,8 +21,8 @@ class ReviewBtns extends React.Component {
     render() {
         return (
             <div>
-                <Button color="contrast" onClick={this.approve}>Approve</Button>
-                <Button color="contrast" onClick={this.rework}>Rework</Button>
+                <Button color="primary" onClick={this.approve}>Approve</Button>
+                <Button color="primary" onClick={this.rework}>Rework</Button>
             </div>
         );
     }
