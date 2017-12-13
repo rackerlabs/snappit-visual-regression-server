@@ -18,7 +18,7 @@ const theme = createMuiTheme({
 interface AppProps {}
 
 interface AppState {
-  repos: Array<any>
+  repos: {name: string}[];
 }
 
 class App extends React.Component<AppProps, AppState> {
