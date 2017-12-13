@@ -2,7 +2,7 @@ import * as React from 'react';
 import './App.css';
 import {
 } from 'material-ui';
-import DifferBox from './DifferBox';
+import DiffBox from './DiffBox';
 import ReviewBtns from './ReviewBtns';
 
 class ReviewBox extends React.Component {
@@ -18,7 +18,7 @@ class ReviewBox extends React.Component {
         return (
             <div>
                 ReviewBox......
-                <DifferBox/>
+                <DiffBox/>
                 <ReviewBtns/>
             </div>
         );
