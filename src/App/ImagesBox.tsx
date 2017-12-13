@@ -7,8 +7,9 @@ class ImagesBox extends React.Component {
     render() {
         return (
             <div>
-                Images div
-            </div>
+                <img width="600" src="added1.png"/>
+                <img width="600" src="deleted1.png"/>
+           </div>
         );
     }
 }
