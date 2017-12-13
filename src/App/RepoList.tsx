@@ -24,7 +24,7 @@ class RepoList extends React.Component<Props, object> {
   render() {
     const repos = this.props.repos;
     const repoRows = repos.map((repo) =>
-        <RepoRow key={repo.toString()} repoName={repo.name} />
+        <RepoRow key={repo.id} repoName={repo.name} />
     );
     return (
         <ul>

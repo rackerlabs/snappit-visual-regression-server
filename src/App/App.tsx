@@ -7,7 +7,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import OAuthDialog from './OAuthDialog';
 import RepoList from './RepoList';
 import ReviewBox from './ReviewBox';
-var Octokat = require('./octokat');
+var GitHubApi = require('github');
 
 const theme = createMuiTheme({
   palette: {
@@ -38,13 +38,14 @@ class App extends React.Component<AppProps, AppState> {
     this.setState({
       repos: []
     });
-    let octo = new Octokat();
-    let repos = octo.users('jseutter').repos;
-    repos.fetchAll().then(function (this: any, result: any): any {
+
+    let github = new GitHubApi();
+    github.repos.getForUser({username: 'jseutter'})
+    .then(result => {
       return this.setState({
-        repos: result
+        repos: result.data
       });
-    }.bind(this));
+    });
   }
 
   render() {
