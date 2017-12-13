@@ -18,15 +18,10 @@ const theme = createMuiTheme({
 interface AppProps {}
 
 interface AppState {
-  repos: {name: string}[];
+  repos: {id: string, name: string}[];
 }
 
 class App extends React.Component<AppProps, AppState> {
-  REPOS = [
-    {name: 'ofxparse-2'},
-    {name: 'ofxparse-3'}
-  ];
-
   constructor(props: AppProps) {
     super(props);
     this.state = {

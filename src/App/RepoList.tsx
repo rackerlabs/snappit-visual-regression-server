@@ -17,7 +17,7 @@ class RepoRow extends React.Component<Props2, object> {
 }
 
 export interface Props {
-    repos: Array<any>;
+    repos: {id: string, name: string}[];
 }
 
 class RepoList extends React.Component<Props, object> {
