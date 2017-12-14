@@ -3,12 +3,16 @@ import './App.css';
 import {
 } from 'material-ui';
 
-class ImagesBox extends React.Component {
+export interface Props {
+    raw_url: string;
+}
+
+class ImagesBox extends React.Component<Props, object> {
     render() {
         return (
             <div>
-                <img width="600" src="added1.png"/>
-                <img width="600" src="deleted1.png"/>
+                <img width="600" src=""/>
+                <img width="600" src={this.props.raw_url}/>
            </div>
         );
     }

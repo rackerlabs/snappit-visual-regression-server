@@ -5,7 +5,11 @@ import {
 import DiffBox from './DiffBox';
 import ReviewBtns from './ReviewBtns';
 
-class ReviewBox extends React.Component {
+export interface Props {
+    pr_files: {raw_url: string}[];
+}
+
+class ReviewBox extends React.Component<Props, object> {
     state = {
         approved: false,
     };
@@ -15,10 +19,15 @@ class ReviewBox extends React.Component {
     }
     
     render() {
+        const pr_files = this.props.pr_files;
+        const diffRows = pr_files.map((prFile) =>
+            <DiffBox key={prFile.raw_url} raw_url={prFile.raw_url} />
+        );
+
         return (
             <div>
                 ReviewBox......
-                <DiffBox/>
+                {diffRows}
                 <ReviewBtns/>
             </div>
         );

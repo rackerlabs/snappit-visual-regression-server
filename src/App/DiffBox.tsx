@@ -5,7 +5,12 @@ import {
 import CheckerBox from './CheckerBox';
 import ImagesBox from './ImagesBox';
 
-class DiffBox extends React.Component {
+export interface Props {
+    key: string;
+    raw_url: string;
+}
+
+class DiffBox extends React.Component<Props, object> {
     state = {
         approved: false,
     };
@@ -18,7 +23,8 @@ class DiffBox extends React.Component {
         return (
             <div>
                 DiffBox......
-                <ImagesBox/>
+                {this.props.raw_url}
+                <ImagesBox raw_url={this.props.raw_url} />
                 <CheckerBox/>
             </div>
         );

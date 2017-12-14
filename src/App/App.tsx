@@ -7,6 +7,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import OAuthDialog from './OAuthDialog';
 import RepoList from './RepoList';
 import ReviewBox from './ReviewBox';
+import PRList from './PRList';
 var GitHubApi = require('github');
 
 const theme = createMuiTheme({
@@ -19,26 +20,55 @@ interface AppProps {}
 
 interface AppState {
   repos: {id: string, name: string}[];
+  prs: {id: string, url: string}[];
+  pr_files: {raw_url: string}[];
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
+      prs: [],
+      pr_files: [],
     };
   }
 
   componentDidMount() {
-    this.setState({
-      repos: []
+    let github = new GitHubApi({
+      host: 'github.rackspace.com',
+      pathPrefix: '/api/v3',
+      protocol: 'https'
     });
 
-    let github = new GitHubApi();
-    github.repos.getForUser({username: 'jseutter'})
+    // github.repos.getForUser({username: 'jseutter'})
+    // .then(result => {
+    //   return this.setState({
+    //     repos: result.data
+    //   });
+    // });
+
+    github.authenticate({
+      type: 'token',
+      token: 'a69a95da4744ba577016b758b2369feb0a08ec38'
+    });
+    // github.pullRequests.getAll({owner: 'SVR', repo: 'To-Do', state: 'open'})
+    // .then(result => {
+    //   return this.setState({
+    //     prs: result.data
+    //   });
+    // });
+    github.pullRequests.getAll({owner: 'jerr9569', repo: 'speakeasy'})
     .then(result => {
       return this.setState({
-        repos: result.data
+        prs: result.data
+      });
+    });
+
+    github.pullRequests.getFiles({owner: 'SVR', repo: 'To-Do', number: 1})
+    .then(result => {
+      return this.setState({
+        pr_files: result.data
       });
     });
   }
@@ -58,7 +88,8 @@ class App extends React.Component<AppProps, AppState> {
         </Toolbar>
       </AppBar>
       <RepoList repos={this.state.repos}/>
-      <ReviewBox/>
+      <PRList prs={this.state.prs}/>
+      <ReviewBox pr_files={this.state.pr_files}/>
       </MuiThemeProvider>
     );
   }
