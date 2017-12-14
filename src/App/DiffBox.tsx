@@ -8,6 +8,7 @@ import ImagesBox from './ImagesBox';
 export interface Props {
     key: string;
     raw_url: string;
+    original_url: string;
 }
 
 class DiffBox extends React.Component<Props, object> {
@@ -22,9 +23,8 @@ class DiffBox extends React.Component<Props, object> {
     render() {
         return (
             <div>
-                DiffBox......
-                {this.props.raw_url}
-                <ImagesBox raw_url={this.props.raw_url} />
+                DiffBox: {this.props.raw_url}
+                <ImagesBox original_url={this.props.original_url} raw_url={this.props.raw_url} />
                 <CheckerBox/>
             </div>
         );

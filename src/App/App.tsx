@@ -21,7 +21,9 @@ interface AppProps {}
 interface AppState {
   repos: {id: string, name: string}[];
   prs: {id: string, url: string}[];
-  pr_files: {raw_url: string}[];
+  pr: {number: number, base: {sha: string}};
+  pr_files: {raw_url: string, filename: string, original: {url: string}}[];
+  github: object;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -30,7 +32,9 @@ class App extends React.Component<AppProps, AppState> {
     this.state = {
       repos: [],
       prs: [],
+      pr: {number: -1, base: {sha: ''}},
       pr_files: [],
+      github: Object,
     };
   }
 
@@ -40,8 +44,9 @@ class App extends React.Component<AppProps, AppState> {
       pathPrefix: '/api/v3',
       protocol: 'https'
     });
+    this.setState({github: github});
 
-    // github.repos.getForUser({username: 'jseutter'})
+    // github.repos.getForUser({username: 'jerr9569'})
     // .then(result => {
     //   return this.setState({
     //     repos: result.data
@@ -52,21 +57,28 @@ class App extends React.Component<AppProps, AppState> {
       type: 'token',
       token: 'a69a95da4744ba577016b758b2369feb0a08ec38'
     });
-    // github.pullRequests.getAll({owner: 'SVR', repo: 'To-Do', state: 'open'})
-    // .then(result => {
-    //   return this.setState({
-    //     prs: result.data
-    //   });
-    // });
-    github.pullRequests.getAll({owner: 'jerr9569', repo: 'speakeasy'})
+    github.pullRequests.getAll({owner: 'SVR', repo: 'To-Do'})
     .then(result => {
       return this.setState({
-        prs: result.data
+        prs: result.data,
+        pr: result.data[0]
       });
     });
-
     github.pullRequests.getFiles({owner: 'SVR', repo: 'To-Do', number: 1})
     .then(result => {
+      result.data.forEach(element => {
+        element.original = {url: ''};
+      });
+
+      result.data.forEach(element => {
+        let refspec = this.state.pr.base.sha;
+        let path = element.filename;
+        github.repos.getContent({owner: 'SVR', repo: 'To-Do', path: path, ref: refspec})
+        .then(result3 => {
+          element.original = result3.data;
+        });
+      });
+
       return this.setState({
         pr_files: result.data
       });
