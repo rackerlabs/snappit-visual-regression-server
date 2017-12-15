@@ -30,6 +30,7 @@ class PRList extends React.Component<Props, object> {
     );
     return (
         <div style={divStyle}>
+            <h3>The following pull requests have visual changes that need review:</h3>
             <ul>
                 {prRows}
             </ul>
@@ -42,7 +43,7 @@ const divStyle = {
     borderRadius: '10px',
     borderWidth: 'thin',
     backgroundColor: '#ddd',
-    width: '1200px',
+    width: '1250px',
     padding: '20px',
     marginLeft: '40px',
     marginBottom: '80px'

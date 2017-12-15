@@ -66,11 +66,13 @@ class DiffBox extends React.Component<Props, object> {
 }
 
 const divStyle = {
-    borderRadius: '3px',
+    borderRadius: '5px',
     borderStyle: 'solid',
     borderColor: '#ccc',
     borderWidth: '5px',
-    marginBottom: '40px'
+    marginBottom: '40px',
+    paddingTop: '20px',
+    textAlign: 'center',
 };
 
 export default DiffBox;

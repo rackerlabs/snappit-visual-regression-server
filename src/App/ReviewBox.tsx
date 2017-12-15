@@ -28,8 +28,11 @@ class ReviewBox extends React.Component<Props, object> {
 
         return (
             <div style={divStyle}>
-                {diffRows}
-                <ReviewBtns/>
+                <h3>Visual changes for pull request 1:</h3>
+                <div>
+                    {diffRows}
+                    <ReviewBtns/>
+                </div>
             </div>
         );
     }

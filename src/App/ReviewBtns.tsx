@@ -21,8 +21,10 @@ class ReviewBtns extends React.Component {
     render() {
         return (
             <div>
-                <Button color="primary" onClick={this.approve}>Approve</Button>
-                <Button color="primary" onClick={this.rework}>Rework</Button>
+                Would you like to sign off on these changes, submit feedback for rework?<br/>
+                <Button color="primary" onClick={this.approve}>signoff</Button>
+                <Button color="primary" onClick={this.rework}>rework</Button><br/>
+                <textarea rows={15} cols={80}>If rework, what needs to be changed?</textarea>
             </div>
         );
     }
