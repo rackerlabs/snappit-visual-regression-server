@@ -23,7 +23,6 @@ interface AppState {
   prs: {id: string, url: string}[];
   pr: {number: number, base: {sha: string}};
   pr_files: {raw_url: string, filename: string, original: {url: string}}[];
-  github: object;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -34,7 +33,6 @@ class App extends React.Component<AppProps, AppState> {
       prs: [],
       pr: {number: -1, base: {sha: ''}},
       pr_files: [],
-      github: Object,
     };
   }
 
@@ -44,7 +42,6 @@ class App extends React.Component<AppProps, AppState> {
       pathPrefix: '/api/v3',
       protocol: 'https'
     });
-    this.setState({github: github});
 
     // github.repos.getForUser({username: 'jerr9569'})
     // .then(result => {
@@ -66,19 +63,6 @@ class App extends React.Component<AppProps, AppState> {
     });
     github.pullRequests.getFiles({owner: 'SVR', repo: 'To-Do', number: 1})
     .then(result => {
-      result.data.forEach(element => {
-        element.original = {url: ''};
-      });
-
-      result.data.forEach(element => {
-        let refspec = this.state.pr.base.sha;
-        let path = element.filename;
-        github.repos.getContent({owner: 'SVR', repo: 'To-Do', path: path, ref: refspec})
-        .then(result3 => {
-          element.original = result3.data;
-        });
-      });
-
       return this.setState({
         pr_files: result.data
       });
@@ -101,7 +85,7 @@ class App extends React.Component<AppProps, AppState> {
       </AppBar>
       <RepoList repos={this.state.repos}/>
       <PRList prs={this.state.prs}/>
-      <ReviewBox pr_files={this.state.pr_files}/>
+      <ReviewBox pr_files={this.state.pr_files} base_sha={this.state.pr.base.sha}/>
       </MuiThemeProvider>
     );
   }

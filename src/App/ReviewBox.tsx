@@ -7,6 +7,7 @@ import ReviewBtns from './ReviewBtns';
 
 export interface Props {
     pr_files: {raw_url: string, filename: string, original: {url: string}}[];
+    base_sha: string;
 }
 
 class ReviewBox extends React.Component<Props, object> {
@@ -21,7 +22,7 @@ class ReviewBox extends React.Component<Props, object> {
     render() {
         const pr_files = this.props.pr_files;
         const diffRows = pr_files.map((prFile) =>
-            <DiffBox key={prFile.raw_url} original_url={prFile.original.url} raw_url={prFile.raw_url} />
+            <DiffBox key={prFile.raw_url} base_sha={this.props.base_sha} pr_file={prFile} />
         );
 
         return (
