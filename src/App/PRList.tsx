@@ -29,8 +29,7 @@ class PRList extends React.Component<Props, object> {
         <PRRow key={repo.id} url={repo.url} />
     );
     return (
-        <div>
-            List of PRs:
+        <div style={divStyle}>
             <ul>
                 {prRows}
             </ul>
@@ -38,5 +37,15 @@ class PRList extends React.Component<Props, object> {
     );
   }
 }
+
+const divStyle = {
+    borderRadius: '10px',
+    borderWidth: 'thin',
+    backgroundColor: '#ddd',
+    width: '1200px',
+    padding: '20px',
+    marginLeft: '40px',
+    marginBottom: '80px'
+};
 
 export default PRList;

@@ -57,12 +57,20 @@ class DiffBox extends React.Component<Props, object> {
 
     render() {
         return (
-            <div>
+            <div style={divStyle}>
                 <ImagesBox original_url={this.state.originalUrl} raw_url={this.props.pr_file.raw_url} />
                 <CheckerBox/>
             </div>
         );
     }
 }
+
+const divStyle = {
+    borderRadius: '3px',
+    borderStyle: 'solid',
+    borderColor: '#ccc',
+    borderWidth: '5px',
+    marginBottom: '40px'
+};
 
 export default DiffBox;
