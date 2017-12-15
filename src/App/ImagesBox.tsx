@@ -1,7 +1,5 @@
 import * as React from 'react';
 import './App.css';
-import {
-} from 'material-ui';
 
 export interface Props {
     raw_url: string;
