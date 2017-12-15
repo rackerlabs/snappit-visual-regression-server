@@ -16,7 +16,7 @@ class CheckerBox extends React.Component {
     render() {
         return (
             <div>
-                <Checkbox color="primary" onClick={this.approved}>Approve</Checkbox>
+                <Checkbox color="primary" onClick={this.approved}>Approve</Checkbox>Approve!
             </div>
         );
     }

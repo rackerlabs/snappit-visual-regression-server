@@ -58,7 +58,13 @@ class App extends React.Component<AppProps, AppState> {
     .then(result => {
       return this.setState({
         prs: result.data,
-        pr: result.data[0]
+      });
+    });
+    // For now, hardcode the PR we pull so we get consistent results
+    github.pullRequests.get({owner: 'SVR', repo: 'To-Do', number: 1})
+    .then(result => {
+      return this.setState({
+        pr: result.data
       });
     });
     github.pullRequests.getFiles({owner: 'SVR', repo: 'To-Do', number: 1})

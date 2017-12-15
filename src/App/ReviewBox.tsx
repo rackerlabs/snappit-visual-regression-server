@@ -20,8 +20,9 @@ class ReviewBox extends React.Component<Props, object> {
     }
     
     render() {
-        const pr_files = this.props.pr_files;
-        const diffRows = pr_files.map((prFile) =>
+        // Only render .png files!
+        const prFiles = this.props.pr_files.filter(prFile => prFile.filename.endsWith('.png'));
+        const diffRows = prFiles.map((prFile) =>
             <DiffBox key={prFile.raw_url} base_sha={this.props.base_sha} pr_file={prFile} />
         );
 

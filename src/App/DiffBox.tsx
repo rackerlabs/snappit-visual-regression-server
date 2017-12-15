@@ -15,35 +15,47 @@ class DiffBox extends React.Component<Props, object> {
     state = {
         approved: false,
         originalUrl: '',
+        oldRefspec: ''
     };
 
     approved = () => {
         this.setState({ approved: true });
     }
     
-    componentDidMount() {
+    fetchOriginal() {
+        if (this.props.base_sha === this.state.oldRefspec) {
+            return;
+        }
         let github = new GitHubApi({
-          host: 'github.rackspace.com',
-          pathPrefix: '/api/v3',
-          protocol: 'https'
+            host: 'github.rackspace.com',
+            pathPrefix: '/api/v3',
+            protocol: 'https'
         });
         github.authenticate({
-          type: 'token',
-          token: 'a69a95da4744ba577016b758b2369feb0a08ec38'
+            type: 'token',
+            token: 'a69a95da4744ba577016b758b2369feb0a08ec38'
         });
 
         let refspec = this.props.base_sha;
         let path = this.props.pr_file.filename;
         github.repos.getContent({owner: 'SVR', repo: 'To-Do', path: path, ref: refspec})
         .then(result => {
-          this.setState({
-            originalUrl: result.data.download_url
-          });
+            this.state.oldRefspec = refspec;
+            return this.setState({
+                originalUrl: result.data.download_url
+            });
         });
+    }
 
-      }
+    componentDidMount() {
+        this.fetchOriginal();
+    }
 
-      render() {
+    componentDidUpdate() {
+        this.fetchOriginal();
+    }
+
+    render() {
         return (
             <div>
                 <ImagesBox original_url={this.state.originalUrl} raw_url={this.props.pr_file.raw_url} />
